@@ -46,6 +46,16 @@
             android:theme="@style/Theme.AppCompat.Light.NoActionBar">
         </activity>
 
+        <activity
+            android:name=".RouteActivityDemo"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar">
+        </activity>
+
+        <activity
+            android:name=".NaviActivity"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar">
+        </activity>
+
         <meta-data
             android:name="com.sfmap.apikey"
             android:value="a800c284ec8b463c9ec85a7e6dad6c4f" />

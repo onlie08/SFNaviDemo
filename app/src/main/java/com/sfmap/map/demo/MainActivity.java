@@ -71,7 +71,7 @@ public class MainActivity extends Activity {
     // 货车导航
     public final static int ROUTE_TYPE_TRUCK = 3;
 
-    int planMode = CARROUTE_INDEX_0;
+    int planMode = CARROUTE_INDEX_DEFAULT;
     int routeType = ROUTE_TYPE_CAR;
     TruckInfo truckInfo;
     double startlat = 30.453473;
@@ -114,7 +114,7 @@ public class MainActivity extends Activity {
         intent.putExtra("truckInfo", truckInfo);
         Log.d(TAG, "startLatlng: " + startLatlng + "endLatlng: " + endLatlng + "planMode: "
                 + planMode + "routeType: " + routeType + "truckInfo: " + truckInfo);
-        intent.setClass(getApplicationContext(), NaviActivityDemo.class);
+        intent.setClass(getApplicationContext(), RouteActivityDemo.class);
         startActivity(intent);
     }
 
