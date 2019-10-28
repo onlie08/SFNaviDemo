@@ -79,17 +79,23 @@ public class RouteActivityDemo extends NaviBaseActivity{
     }
 
     private void initRecyclerView(){
+        GridLayoutManager gridLayoutManager;
         if(mNavi.getNaviPaths() == null){
-            return;
+            gridLayoutManager = new GridLayoutManager(getApplicationContext(), 1);
+        }else {
+            gridLayoutManager = new GridLayoutManager(getApplicationContext(), mNavi.getNaviPaths().size());
         }
-        GridLayoutManager gridLayoutManager = new GridLayoutManager(getApplicationContext(), mNavi.getNaviPaths().size());
         gridLayoutManager.setAutoMeasureEnabled(true);
         recyclerView.setLayoutManager(gridLayoutManager);
         recyclerView.setNestedScrollingEnabled(false);
 
         List<NaviPath> naviPaths = new ArrayList<>();
-        for (int i =0 ;i<mNavi.getNaviPaths().size();i++){
-            naviPaths.add(mNavi.getNaviPaths().get(i));
+        if(mNavi.getNaviPaths() == null){
+            naviPaths.add(mNavi.getNaviPath());
+        }else {
+            for (int i =0 ;i<mNavi.getNaviPaths().size();i++){
+                naviPaths.add(mNavi.getNaviPaths().get(i));
+            }
         }
         PathAdapter pathAdapter = new PathAdapter(naviPaths);
         recyclerView.setAdapter(pathAdapter);
@@ -120,6 +126,16 @@ public class RouteActivityDemo extends NaviBaseActivity{
     protected void onResume() {
         super.onResume();
         mapView.onResume();
+        switch (routeType){
+            case 1:
+                startCarNavigation();
+                break;
+            case 3:
+                startTruckNavigation();
+                break;
+            default:
+                break;
+        }
     }
 
     @Override
@@ -173,16 +189,16 @@ public class RouteActivityDemo extends NaviBaseActivity{
      */
     @Override
     public void onInitNaviSuccess() {
-        switch (routeType){
-            case 1:
-                startCarNavigation();
-                break;
-            case 3:
-                startTruckNavigation();
-                break;
-            default:
-                break;
-        }
+//        switch (routeType){
+//            case 1:
+//                startCarNavigation();
+//                break;
+//            case 3:
+//                startTruckNavigation();
+//                break;
+//            default:
+//                break;
+//        }
     }
 
     /**
@@ -190,7 +206,9 @@ public class RouteActivityDemo extends NaviBaseActivity{
      */
     @Override
     public void onCalculateRouteSuccess() {
-        drawLines(mNavi.getNaviPaths());
+        HashMap<Integer, NaviPath> naviPathHashMap = new HashMap<>();
+        naviPathHashMap.put(0,mNavi.getNaviPath());
+        drawLines(naviPathHashMap);
 
     }
 

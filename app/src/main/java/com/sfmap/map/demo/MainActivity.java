@@ -13,6 +13,7 @@ import android.widget.Button;
 import android.widget.RadioGroup;
 
 import com.google.gson.Gson;
+import com.sfmap.api.navi.Navi;
 import com.sfmap.api.navi.model.NaviLatLng;
 
 import butterknife.BindView;
@@ -85,6 +86,7 @@ public class MainActivity extends Activity {
         setContentView(R.layout.activity_main);
         unbinder = ButterKnife.bind(this);
         requestPermission();
+        Navi.getInstance(this);
     }
 
     private void requestPermission() {
