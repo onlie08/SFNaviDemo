@@ -65,4 +65,39 @@ public class NaviActivity extends NaviBaseActivity{
 
         }
     }
+
+    @Override
+    public void onGetNavigationText(int i, String s) {
+        sfSpeechSyntesizer.startSpeaking(s);
+    }
+
+    @Override
+    public void onReCalculateRouteForYaw() {
+        sfSpeechSyntesizer.startSpeaking("您已偏航,已为您重新规划路线");
+    }
+
+    @Override
+    public void onArrivedWayPoint(int i) {
+        sfSpeechSyntesizer.startSpeaking("到达第" + i + "个途径点");
+    }
+
+    /**
+     * 导航结束
+     */
+    @Override
+    public void onArriveDestination() {
+        sfSpeechSyntesizer.startSpeaking("到达目的地,本次导航结束");
+        finish();
+    }
+
+    /**
+     * 导航页面左下角返回按钮点击后弹出的 "退出导航对话框" 中选择 "确定" 后的回调接口。
+     */
+    @Override
+    public void onNaviCancel() {
+        mNavi.stopNavi();
+        mNaviView.onDestroy();
+        sfSpeechSyntesizer.destroy();
+        finish();
+    }
 }
