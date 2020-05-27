@@ -49,13 +49,6 @@
         <meta-data
             android:name="com.sfmap.apikey"
             android:value="a800c284ec8b463c9ec85a7e6dad6c4f" />
-            <!--android:value="e6713376ef2e4595982639578c55984a" />-->
-
-        <meta-data
-            android:name="com.amap.api.v2.apikey"
-            android:value="cc6bcba2822b9f3b55c66e88ba30feaa" />
-        <!-- 定位需要的服务 -->
-        <service android:name="com.amap.api.location.APSService" />
     </application>
 
 </manifest>

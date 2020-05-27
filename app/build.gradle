@@ -4,21 +4,40 @@ android {
     compileSdkVersion 28
     defaultConfig {
         ndk {
-            abiFilter "armeabi" //, "armeabi", "x86" 按需设置armeabi-v7a
+            abiFilter "armeabi"
         }
 
         applicationId "com.sfmap.map.demo"
         minSdkVersion 18
-        targetSdkVersion 28
+        targetSdkVersion 23
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
 
+    signingConfigs {
+        release {
+            storeFile file('../sfmap.keystore')
+            storePassword "sf-gis-111"
+            keyAlias "SFMap"
+            keyPassword "sf-gis-111"
+        }
+    }
+
     buildTypes {
         release {
             minifyEnabled false
+            zipAlignEnabled false
+            shrinkResources false
+            signingConfig signingConfigs.release
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+        debug {
+            minifyEnabled false
+            zipAlignEnabled false
+            shrinkResources false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-project.txt'
+            signingConfig signingConfigs.release
         }
     }
 
