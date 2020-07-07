@@ -1,6 +1,14 @@
 apply plugin: 'com.android.application'
 
 android {
+    signingConfigs {
+        common {
+            keyAlias 'common'
+            keyPassword 'sf123456'
+            storeFile file('../keystore.jks')
+            storePassword 'sf123456'
+        }
+    }
     compileSdkVersion 28
     defaultConfig {
         ndk {
@@ -9,7 +17,7 @@ android {
 
         applicationId "com.sfmap.map.demo"
         minSdkVersion 18
-        targetSdkVersion 28
+        targetSdkVersion 24
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
@@ -19,6 +27,10 @@ android {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.common
+        }
+        debug {
+            signingConfig signingConfigs.common
         }
     }
 
@@ -53,9 +65,9 @@ dependencies {
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'com.android.support.test:runner:1.0.2'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
-    implementation(name: 'sfmap-mapsdk-V1.0-20191017', ext: 'aar')
-    implementation(name: 'sfmap-navisdk-V1.0-20191016', ext: 'aar')
-    implementation(name: 'sfmap-location-V1.0-20191016', ext: 'aar')
+    implementation(name: 'sfmap-mapsdk-V1.0-20191127', ext: 'aar')
+    implementation(name: 'sfmap-navisdk-V1.0-20191127', ext: 'aar')
+    implementation(name: 'sfmap-locsdk-V1.0-20191127', ext: 'aar')
     /** 支持Gson解析  **/
     implementation 'com.squareup.retrofit2:converter-gson:2.3.0'
     //科大讯飞语音

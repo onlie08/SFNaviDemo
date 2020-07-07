@@ -36,9 +36,9 @@ public class RouteActivityDemo extends NaviBaseActivity{
     private MapView mapView;
     private Navi mNavi;
     //算路终点坐标
-    protected NaviLatLng mEndLatlng = new NaviLatLng(22.606078, 114.028124);
+    protected NaviLatLng mEndLatlng = new NaviLatLng(34.71806, 113.741719);
     //算路起点坐标
-    protected NaviLatLng mStartLatlng = new NaviLatLng(23.524158, 113.941194);
+    protected NaviLatLng mStartLatlng = new NaviLatLng(34.718029, 113.743371);
     private int planMode = 9;
     private int routeType = 1;
     protected TruckInfo mTruckInfo;
