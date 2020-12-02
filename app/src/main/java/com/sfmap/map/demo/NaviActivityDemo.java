@@ -44,7 +44,7 @@ public class NaviActivityDemo extends NaviBaseActivity
 //    private LocationManager locationManager;
     private int planMode = 9;
     private int routeType = 1;
-    private SFSpeechSyntesizer sfSpeechSyntesizer;
+    private SYSSpeechSynthesizer sfSpeechSyntesizer;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,7 +65,7 @@ public class NaviActivityDemo extends NaviBaseActivity
         if(!TextUtils.isEmpty(truckInfo)){
             mTruckInfo = new Gson().fromJson(truckInfo, TruckInfo.class);
         }
-        sfSpeechSyntesizer = SFSpeechSyntesizer.getInstance(NaviActivityDemo.this);
+        sfSpeechSyntesizer = SYSSpeechSynthesizer.getInstance(NaviActivityDemo.this);
         initNaviData();
 //        initLocationListener();
 //        initSfLocationClient();

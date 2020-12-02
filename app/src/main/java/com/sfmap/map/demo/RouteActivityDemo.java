@@ -24,6 +24,10 @@ import com.sfmap.api.navi.Navi;
 import com.sfmap.api.navi.model.NaviLatLng;
 import com.sfmap.api.navi.model.NaviPath;
 
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -53,7 +57,7 @@ public class RouteActivityDemo extends NaviBaseActivity{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_route);
         initView(savedInstanceState);
-
+        EventBus.getDefault().register(this);
         String startLatlng = getIntent().getStringExtra("startLatlng");
         String endLatlng = getIntent().getStringExtra("endLatlng");
         String truckInfo = getIntent().getStringExtra("truckInfo");
@@ -68,6 +72,16 @@ public class RouteActivityDemo extends NaviBaseActivity{
             mTruckInfo = new Gson().fromJson(truckInfo, TruckInfo.class);
         }
         initNaviData();
+        switch (routeType){
+            case 1:
+                startCarNavigation();
+                break;
+            case 3:
+                startTruckNavigation();
+                break;
+            default:
+                break;
+        }
     }
 
     private void initView(Bundle savedInstanceState) {
@@ -126,16 +140,7 @@ public class RouteActivityDemo extends NaviBaseActivity{
     protected void onResume() {
         super.onResume();
         mapView.onResume();
-        switch (routeType){
-            case 1:
-                startCarNavigation();
-                break;
-            case 3:
-                startTruckNavigation();
-                break;
-            default:
-                break;
-        }
+
     }
 
     @Override
@@ -149,6 +154,7 @@ public class RouteActivityDemo extends NaviBaseActivity{
         super.onDestroy();
         try{
             mapView.onDestroy();
+            EventBus.getDefault().unregister(this);
         }catch (Exception e){
 
         }
@@ -189,16 +195,6 @@ public class RouteActivityDemo extends NaviBaseActivity{
      */
     @Override
     public void onInitNaviSuccess() {
-//        switch (routeType){
-//            case 1:
-//                startCarNavigation();
-//                break;
-//            case 3:
-//                startTruckNavigation();
-//                break;
-//            default:
-//                break;
-//        }
     }
 
     /**
@@ -268,5 +264,22 @@ public class RouteActivityDemo extends NaviBaseActivity{
 
         bounds = builder.build();
         mapView.getMap().animateCamera(CameraUpdateFactory.newLatLngBounds(bounds, padding));
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onEventBusReceived(EventBean data) {
+        if (data.getCode() == 1) {
+            initNaviData();
+            switch (routeType){
+                case 1:
+                    startCarNavigation();
+                    break;
+                case 3:
+                    startTruckNavigation();
+                    break;
+                default:
+                    break;
+            }
+        }
     }
 }

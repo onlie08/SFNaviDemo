@@ -6,16 +6,18 @@ import android.os.Handler;
 import com.sfmap.api.navi.Navi;
 import com.sfmap.api.navi.NaviView;
 
+import org.greenrobot.eventbus.EventBus;
+
 public class NaviActivity extends NaviBaseActivity{
     private NaviView mNaviView;
     private Navi mNavi;
-    private SFSpeechSyntesizer sfSpeechSyntesizer;
+    private SYSSpeechSynthesizer sfSpeechSyntesizer;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_navi);
-        sfSpeechSyntesizer = SFSpeechSyntesizer.getInstance(NaviActivity.this);
+        sfSpeechSyntesizer = SYSSpeechSynthesizer.getInstance(NaviActivity.this);
         initView(savedInstanceState);
         initNaviData();
     }
@@ -59,8 +61,10 @@ public class NaviActivity extends NaviBaseActivity{
         super.onDestroy();
         try{
             mNavi.stopNavi();
+            mNavi.destroy();
             mNaviView.onDestroy();
             sfSpeechSyntesizer.destroy();
+            EventBus.getDefault().post(new EventBean(1));
         }catch (Exception e){
 
         }
@@ -95,9 +99,9 @@ public class NaviActivity extends NaviBaseActivity{
      */
     @Override
     public void onNaviCancel() {
-        mNavi.stopNavi();
-        mNaviView.onDestroy();
-        sfSpeechSyntesizer.destroy();
+//        mNavi.stopNavi();
+//        mNaviView.onDestroy();
+//        sfSpeechSyntesizer.destroy();
         finish();
     }
 }
